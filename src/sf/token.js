@@ -1,19 +1,26 @@
 "user strict";
-var axios=require("axios");
+var request=require("superagent");
+var cheerio=require("cheerio");
 var token={
     getToken:function(config){
         return new Promise((resolve,reject)=>{
-            axios.get(config.url,{
-                handlers:config.headers,
-                proxy:config.proxy,
-                responseType:"text"
-            }).then(response=>{
-                 var data=response.data;
-                console.log(response);
-                resolve(data);
-            }).catch(ex=>{
-                reject("token"+ex);
-            })
+            request.get(config.url)
+                .set(config.headers)
+                .end((err,res)=>{
+                    if (err || !res.ok) {
+                        reject("token"+err);
+                    } else {
+                        var $=cheerio.load(res.text);
+                        var tokenScript=$('script[id="loginModal"]').next().html();
+                        if(!tokenScript){
+                            reject("get token err");
+                        }
+                        var buildToken=new Function("var window={};"+tokenScript+";return window");
+                        var token={_id:buildToken().SF.token};
+                        console.log(token);
+                        resolve(token);
+                    }
+                })
         });
     }
 }

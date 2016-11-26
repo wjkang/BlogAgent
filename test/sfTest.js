@@ -1,7 +1,7 @@
 "use strict";
 var sf = require("../src/sf/doPost");
 var config = {
-    url: "http://www.jianshu.com",
+    url: "https://segmentfault.com/write",
     headers: {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "AcceptEncoding": "gzip, deflate, br",

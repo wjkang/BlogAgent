@@ -1,17 +1,20 @@
 "use strict";
-var axios=require("axios");
+var request=require("superagent");
 var post={
     post:function(config,token){
         return new Promise((resolve,reject)=>{
-            axios.post(config.url,{
-                data:config.data,
-                handlers:config.headers,
-                params:token
-            }).then(data=>{
-                resolve(data);
-            }).catch(ex=>{
-                reject("post"+ex);
-            })
+            request.post(config.url)
+                .set(config.headers)
+                .send(config.data)
+                .query(token)
+                .end((err,res)=>{
+                    if (err || !res.ok) {
+                        reject("post"+err);
+                    } else {
+                        var data=res;
+                        resolve(data);
+                    }
+                })
         })
     }
 }
