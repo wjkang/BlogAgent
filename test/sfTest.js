@@ -1,5 +1,7 @@
 "use strict";
 var sf = require("../src/sf/doPost");
+var http=require("http");
+var query = require("querystring");
 var config = {
     writeUrl: "https://segmentfault.com/write",
     postUrl:"https://segmentfault.com/api/articles/add",
@@ -35,8 +37,29 @@ var config = {
     }
 
 }
-sf.doPost(config).then(data=> {
+/*sf.doPost(config).then(data=> {
     //console.log(data);
 }).catch(ex=> {
     //console.log(ex);
+});*/
+var server=new http.Server();
+server.on('request', function(req, res){
+    if(req.method=="POST"){
+        var postdata = "";
+        req.addListener("data",function(postchunk){
+            postdata += postchunk;
+        })
+
+        //POST结束输出结果
+        req.addListener("end",function(){
+            var params = query.parse(postdata);
+            console.log(params);
+        })
+    }
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200, {'Content-Type': 'text/json'});
+    res.end(JSON.stringify({result:1}));
+});
+server.listen(3000, function(){
+    console.log('在端口3000启动了服务器');
 });
