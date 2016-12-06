@@ -57,6 +57,7 @@ server.on('request', function(req, res){
         })
     }
     res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.writeHead(200, {'Content-Type': 'text/json'});
     res.end(JSON.stringify({result:1}));
 });
