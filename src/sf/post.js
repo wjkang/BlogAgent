@@ -12,7 +12,6 @@ var post={
                         reject("post"+err);
                     } else {
                         var data=res;
-                        console.log(data.text);
                         resolve(data);
                     }
                 })

@@ -17,7 +17,6 @@ var token={
                         }
                         var buildToken=new Function("var window={};"+tokenScript+";return window");
                         var token={_:buildToken().SF.token};
-                        //console.log(token);
                         resolve(token);
                     }
                 })

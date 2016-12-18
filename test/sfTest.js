@@ -30,12 +30,26 @@ server.on('request', function(req, res){
         req.addListener("end",function(){
             var params = query.parse(postdata);
             console.log(params);
+            var postData={
+                cookie:params.sfCookies,
+                data:{
+                    title:"后端自动添加21212",
+                    text:params.content,
+                    blogId:1200000006808837,
+                    tags:params.sfTags.split(",")
+                }
+            }
+            sf.doPost(postData).then(data=> {
+                console.log(data);
+                res.setHeader('Content-Type', 'text/html');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.writeHead(200, {'Content-Type': 'text/json'});
+                res.end(JSON.stringify(data));
+            }).catch(ex=> {
+                console.log(ex);
+            });
         })
     }
-    res.setHeader('Content-Type', 'text/html');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.writeHead(200, {'Content-Type': 'text/json'});
-    res.end(JSON.stringify({result:1}));
 });
 server.listen(3000, function(){
     console.log('在端口3000启动了服务器');
