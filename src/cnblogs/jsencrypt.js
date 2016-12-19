@@ -7,8 +7,17 @@ jsdom.env({
         SkipExternalResources: false
     },
     done: function (err, window) {
-        var $ = window.return_url;
-        console.log($)
+        var encrypt = new window.JSEncrypt();
+        var encryptCode = window.signin_go.toString().match(/encrypt\.setPublicKey\(\'(\S*)\'\)/)[1];
+        encrypt.setPublicKey(encryptCode);
+        var token=window.signin_go.toString().match(/\'VerificationToken\':.*\'(.*)\'/)[1];
+        var encryptName=encrypt.encrypt("977865769@qq.com");
+        var encryptPwd=encrypt.encrypt("977865769");
+        console.log({
+            token:token,
+            name:encryptName,
+            pwd:encryptPwd
+        });
     }
 });
 /*
