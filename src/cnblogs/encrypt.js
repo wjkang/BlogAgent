@@ -20,15 +20,15 @@ var encrypt={
                         var encryptCode = window.signin_go.toString().match(/encrypt\.setPublicKey\(\'(\S*)\'\)/)[1];
                         encrypt.setPublicKey(encryptCode);
                         var token = window.signin_go.toString().match(/\'VerificationToken\':.*\'(.*)\'/)[1];
-                        var encryptName = window.encrypt.encrypt(userName);
-                        var encryptPwd = window.encrypt.encrypt(reject);
+                        var encryptName =encrypt.encrypt(userName);
+                        var encryptPwd = encrypt.encrypt(pwd);
                         resolve({
                             token: token,
                             name: encryptName,
                             pwd: encryptPwd
                         });
                     }catch(ex){
-                        reject(err);
+                        reject(ex);
                     }
                 }
             });
