@@ -22,7 +22,7 @@ var post={
                     if (err || !res.ok) {
                         reject("post blog err:" + err);
                     } else {
-                        var headers=res.headers;
+                        var headers=res.redirects;
                         resolve(headers);
                     }
                 });
