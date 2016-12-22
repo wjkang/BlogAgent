@@ -3,7 +3,7 @@ var token=require("./token");
 var post=require("./post");
 var config=require("./config");
 var sf={
-    doPost:function(postData){
+    postBlog:function(postData){
         config.postHeaders.Cookie=postData.cookie;
         config.tokenHeaders.Cookie=postData.cookie;
         config.data=postData.data;
