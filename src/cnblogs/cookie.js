@@ -30,7 +30,7 @@ var cookie= {
                         var headers=res.headers;
                         var cookie=headers["set-cookie"];
                         var cookieStr=cookie[0].match(/(.*); domain/)[1]+"; ";
-                        cookieStr+=cookie[1].match(/(.*);Path/)[1];
+                        cookieStr+=cookie[1].match(/(.*); domain/)[1];
                         resolve(cookieStr);
                     }
                 });

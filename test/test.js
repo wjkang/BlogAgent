@@ -20,6 +20,6 @@ var postCNBlogsData={
     Editor$Edit$Advanced$tbEnryPassword:"",
     Editor$Edit$lkbPost:"发布"
 };
-cnblogs.postBlog(postCNBlogsData,"jaycewu","pwd")
+cnblogs.postBlog(postCNBlogsData,"jaycewu","wjk")
        .then(s=>console.log(s));
 
